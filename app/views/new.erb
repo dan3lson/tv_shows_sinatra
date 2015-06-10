@@ -1,5 +1,10 @@
 <h1>Add Show</h1>
 
+<% message ||= nil %>
+<% if message %>
+  <h3>Error: <%= message %></h3>
+<% end %>
+
 <form action="/television_shows" method="post">
   <div>
     <label for="title">Title:</label>

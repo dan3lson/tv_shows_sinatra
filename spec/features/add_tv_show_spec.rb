@@ -16,6 +16,31 @@ feature "user adds a new TV show" do
   # * If any of the above validations fail, the form should be
   #   re-displayed with the failing validation message.
 
-  pending "successfully add a new show"
-  pending "fail to add a show with invalid information"
+  scenario "successfully add a new show" do
+    visit "/"
+    click_on "Add New Show"
+    fill_in "Title:", with: "Fresh Prince"
+    fill_in "Network:", with: "DAR"
+    fill_in "Starting Year:", with: "1988"
+    click_on "Add TV Show"
+
+    expect(page).to have_content("Fresh Prince")
+    expect(page).to have_content("DAR")
+    expect(page).to have_link("Add New Show")
+  end
+
+  scenario "fail to add a show with invalid information" do
+    visit "/"
+    click_on "Add New Show"
+    fill_in "Title:", with: "Family Matters"
+    fill_in "Network:", with: "ABC"
+    fill_in "Starting Year:", with: "1987"
+    select "Comedy", from: "Genre:"
+    fill_in "Ending Year:", with: "3"
+    click_on "Add TV Show"
+
+    expect(page).to have_link("Back to all shows")
+    expect(page).to have_button("Add TV Show")
+    expect(page).to have_content("[\"Ending year must be greater than 1900\"]")
+  end
 end

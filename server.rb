@@ -29,6 +29,7 @@ post "/television_shows" do
   if show.save
     redirect "/television_shows"
   else
-    erb :new, locals: { show: show }
+    message = show.errors.full_messages
+    erb :new, locals: { show: show, message: message }
   end
 end
