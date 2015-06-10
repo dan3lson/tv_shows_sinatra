@@ -39,6 +39,34 @@ feature "user views list of TV shows" do
   # * If the end year is not provided it should indicate that the show is still
   #   running.
 
-  pending "view details for a TV show"
-  pending "view details for a TV show with missing information"
+  scenario "view details for a TV show" do
+    game_of_thrones = TelevisionShow.create!({
+        title: "Game of Thrones", network: "HBO",
+        starting_year: 2011, genre: "Fantasy"
+      })
+
+    visit "/"
+    click_on "Game of Thrones (HBO)"
+
+    expect(page).to have_content("Network:")
+    expect(page).to have_content("HBO")
+    expect(page).to have_content("Years:")
+    expect(page).to have_content("Game of Thrones")
+    expect(page).to have_content("Genre:")
+    expect(page).to have_content("Fantasy")
+    expect(page).to have_link("Back to all shows")
+  end
+
+  scenario "view details for a TV show with missing information" do
+    game_of_thrones = TelevisionShow.create!({
+        title: "Game of Thrones", network: "HBO",
+        starting_year: 2011, genre: "Fantasy"
+      })
+
+    visit "/"
+    click_on "Game of Thrones (HBO)"
+
+    expect(page).to have_content("still running")
+    expect(page).to have_link("Back to all shows")
+  end
 end

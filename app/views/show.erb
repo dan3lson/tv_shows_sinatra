@@ -4,7 +4,7 @@
   <dt>Network:</dt>
   <dd><%= show.network %></dd>
   <dt>Years:</dt>
-  <dd><%= show.starting_year %> - <%= show.ending_year %></dd>
+  <dd><%= show.starting_year %> - <%= show.ending_year ||= "still running" %></dd>
   <dt>Genre:</dt>
   <dd><%= show.genre %></dd>
 </dl>
